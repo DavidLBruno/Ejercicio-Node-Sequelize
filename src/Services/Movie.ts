@@ -12,7 +12,7 @@ const getMovies = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(400).json({ mensaje: "Ha ocurrido un erro" });
+    res.status(400).json({ mensaje: "Ha ocurrido un error" });
   }
 };
 
