@@ -1,15 +1,32 @@
 import express, { Router } from "express";
-import { createMovie, getMovies } from "../Services/Movie";
-import { createPerson, getPersons } from "../Services/Person";
+import {
+  createMovie,
+  deleteMovie,
+  editMovie,
+  getMovies,
+} from "../Services/Movie";
+import {
+  createPerson,
+  deletePerson,
+  editPerson,
+  getPersonById,
+  getPeople,
+} from "../Services/Person";
 
 const router = Router();
 
 /* Persons */
-router.get("/persons", getPersons);
-router.post("/persons", createPerson);
+router.get("/persons", getPeople);
+router.get("/person/:id", getPersonById);
+router.post("/person", createPerson);
+router.put("/person/:id", editPerson);
+router.delete("/person/:id", deletePerson);
 
 /* Movies */
 router.get("/movies", getMovies);
-router.post("/movies", createMovie);
+router.get("/movie/:id", getPersonById);
+router.post("/movie", createMovie);
+router.put("/movie/:id", editMovie);
+router.delete("/movie/:id", deleteMovie);
 
 export default router;
