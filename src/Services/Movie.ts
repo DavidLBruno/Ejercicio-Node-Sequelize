@@ -12,7 +12,7 @@ const getMovies = async (req: Request, res: Response) => {
         attributes: ["id", "Title", "Year"],
         include: {
           model: Rol,
-          attributes: ["rolName"],
+          attributes: ["RolName"],
           through: {
             attributes: [],
           },
@@ -39,8 +39,8 @@ const getMovies = async (req: Request, res: Response) => {
         attributes: ["id", "Title", "Year"],
         include: {
           model: Rol,
-          attributes: ["rolName"],
-          group: "rolName",
+          attributes: ["RolName"],
+          group: "RolName",
 
           through: {
             attributes: [],
@@ -81,7 +81,7 @@ const getMovieById = async (req: Request, res: Response) => {
       attributes: ["id", "Title", "Year"],
       include: {
         model: Rol,
-        attributes: ["rolName"],
+        attributes: ["RolName"],
         through: {
           attributes: [],
         },
@@ -134,8 +134,9 @@ const createMovie = async (req: Request, res: Response) => {
           },
         });
         let casting = await Rol.create({
-          rolName: "Casting",
+          RolName: "Casting",
         });
+        console.log(casting);
         if (!personCasting) {
           return res
             .status(400)
@@ -157,7 +158,7 @@ const createMovie = async (req: Request, res: Response) => {
           },
         });
         let directors = await Rol.create({
-          rolName: "Directors",
+          RolName: "Directors",
         });
         if (!personCasting) {
           return res
@@ -180,7 +181,7 @@ const createMovie = async (req: Request, res: Response) => {
           },
         });
         let poducers = await Rol.create({
-          rolName: "Producers",
+          RolName: "Producers",
         });
         if (!personCasting) {
           return res

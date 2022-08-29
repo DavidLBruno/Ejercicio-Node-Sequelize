@@ -12,7 +12,7 @@ const getPeople = async (req: Request, res: Response) => {
         },
         attributes: ["id", "Name", "LastName", "Age"],
         include: {
-          attributes: ["rolName"],
+          attributes: ["RolName"],
           through: {
             attributes: [],
           },
@@ -39,7 +39,7 @@ const getPeople = async (req: Request, res: Response) => {
       let allPeople = await Person.findAll({
         attributes: ["id", "Name", "LastName", "Age"],
         include: {
-          attributes: ["rolName"],
+          attributes: ["RolName"],
           through: {
             attributes: [],
           },
@@ -78,7 +78,7 @@ const getPersonById = async (req: Request, res: Response) => {
       },
       attributes: ["id", "Name", "LastName", "Age"],
       include: {
-        attributes: ["rolName"],
+        attributes: ["RolName"],
         through: {
           attributes: [],
         },
