@@ -1,15 +1,63 @@
 import { Express, Request, Response } from "express";
-const { Person, Movie } = require("../db");
+const { Person, Movie, Rol } = require("../db");
 
 const getPeople = async (req: Request, res: Response) => {
   try {
-    let allPeople = await Person.findAll({
-      attributes: ["id", "Name", "LastName", "Age"],
-    });
-    res.status(200).json({
-      mensaje: "Todas las personas",
-      Personas: allPeople,
-    });
+    const { name } = req.query;
+
+    if (name) {
+      let allPeople = await Person.findOne({
+        where: {
+          Name: name,
+        },
+        attributes: ["id", "Name", "LastName", "Age"],
+        include: {
+          attributes: ["rolName"],
+          through: {
+            attributes: [],
+          },
+          model: Rol,
+          include: {
+            attributes: ["Title"],
+            through: {
+              attributes: [],
+            },
+            model: Movie,
+          },
+        },
+      });
+      if (!allPeople) {
+        return res.status(400).json({
+          mensaje: "Persona no encotrada",
+        });
+      }
+      res.status(200).json({
+        mensaje: "Persona encontrada!",
+        Personas: allPeople,
+      });
+    } else if (!name) {
+      let allPeople = await Person.findAll({
+        attributes: ["id", "Name", "LastName", "Age"],
+        include: {
+          attributes: ["rolName"],
+          through: {
+            attributes: [],
+          },
+          model: Rol,
+          include: {
+            attributes: ["Title"],
+            through: {
+              attributes: [],
+            },
+            model: Movie,
+          },
+        },
+      });
+      res.status(200).json({
+        mensaje: "Todas las personas",
+        Personas: allPeople,
+      });
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({ mensaje: "Todo no ok" });
@@ -17,23 +65,6 @@ const getPeople = async (req: Request, res: Response) => {
 };
 
 const getPersonById = async (req: Request, res: Response) => {
-  /* 
-  {
-    "id": 1,
-    "Name": "Leonardo",
-    "LastName": "El facha Di Caprio",
-    "Age": 48,
-    "Casting": [TITANIC],
-    "Productor": [],
-    "Director": [],
-  }
-  {
-    "id": 1,
-    "Name": "Leonardo",
-    "LastName": "Di Caprio",
-    "Age": 48
-    }
-  */
   try {
     const { id } = req.params;
 
@@ -46,6 +77,20 @@ const getPersonById = async (req: Request, res: Response) => {
         id,
       },
       attributes: ["id", "Name", "LastName", "Age"],
+      include: {
+        attributes: ["rolName"],
+        through: {
+          attributes: [],
+        },
+        model: Rol,
+        include: {
+          attributes: ["Title"],
+          through: {
+            attributes: [],
+          },
+          model: Movie,
+        },
+      },
     });
 
     if (!person) {

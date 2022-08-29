@@ -3,6 +3,7 @@ import {
   createMovie,
   deleteMovie,
   editMovie,
+  getMovieById,
   getMovies,
 } from "../Services/Movie";
 import {
@@ -24,7 +25,7 @@ router.delete("/person/:id", deletePerson);
 
 /* Movies */
 router.get("/movies", getMovies);
-router.get("/movie/:id", getPersonById);
+router.get("/movie/:id", getMovieById);
 router.post("/movie", createMovie);
 router.put("/movie/:id", editMovie);
 router.delete("/movie/:id", deleteMovie);

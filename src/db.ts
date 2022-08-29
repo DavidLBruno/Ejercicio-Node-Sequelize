@@ -58,12 +58,19 @@ const { Person, Movie, Rol } = sequelize.models;
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 
-Movie.belongsToMany(Person, {
-  through: "Person_Movie",
+Person.hasMany(Rol, {
+  foreignKey: "personId",
 });
-Person.belongsToMany(Movie, {
-  through: "Person_Movie",
+
+Rol.belongsToMany(Person, { through: "Rol_Person" });
+Person.belongsToMany(Rol, { through: "Rol_Person" });
+
+Movie.hasMany(Rol, {
+  foreignKey: "movieId",
 });
+
+Rol.belongsToMany(Movie, { through: "Rol_Movie" });
+Movie.belongsToMany(Rol, { through: "Rol_Movie" });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
