@@ -1,6 +1,6 @@
 Este es el test de iMachinary para desarrollador Full Stack.
 
-Tiene las funciones basicas de la base de datos (CRUD) PERSON y Movie
+Tiene las funciones basicas de la base de datos (CRUD) en Person y Movie
 
 Los endpoints estan en este json de postman:
 Link: https://www.getpostman.com/collections/d79fb5702b4f9f655dcd
